@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class Start_UI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField]
+    private GameObject StartPanel;
+
+    [SerializeField]
+    private GameObject SelectCharacter_Panel;
+
+    [SerializeField]
+    private GameObject InGame_Panel;
+
+    [SerializeField]
+    private GameObject GameOver_Panel;
+
+    private void Awake()
     {
-        
+        StartPanel.SetActive(true);
+        SelectCharacter_Panel.SetActive(false);
+        InGame_Panel.SetActive(false);
+        GameOver_Panel.SetActive(false);
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void SelectCharacter_Btn()
     {
-        
+        StartPanel.SetActive(false);
+        SelectCharacter_Panel.SetActive(true);
     }
 }
