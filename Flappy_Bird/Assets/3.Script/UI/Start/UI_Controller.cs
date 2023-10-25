@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_Controller : MonoBehaviour
@@ -20,9 +21,6 @@ public class UI_Controller : MonoBehaviour
 
     //버튼====================
 
-  
-
-
     [SerializeField]
     private Button Character1_Btn;
 
@@ -35,6 +33,7 @@ public class UI_Controller : MonoBehaviour
     bool isC1_Selected = false;
     bool isC2_Selected = false;
     bool isC3_Selected = false;
+    private int Select_Num = 0;
 
 
     //텍스트==================
@@ -48,24 +47,15 @@ public class UI_Controller : MonoBehaviour
         SelectCharacter_Panel.SetActive(false); 
         InGame_Panel.SetActive(false);
         GameOver_Panel.SetActive(false);
-
     }
-
-    private void Update()
-    {
-        
-    }
-
 
     #region 버튼 이벤트
 
     public void GameStart_Btn_Clicked()
     {
         StartPanel.SetActive(false);
-
-        Character1_Btn.onClick.AddListener(Character1_Clicked);
-        Character2_Btn.onClick.AddListener(Character2_Clicked);
-        Character3_Btn.onClick.AddListener(Character3_Clicked);
+        InGame_Panel.SetActive(true);
+        GameManager.instance.PlayerCharacter.transform.GetChild(Select_Num).gameObject.SetActive(true);
     }
 
     public void SelectCharacter_Btn_Clicked()
@@ -74,7 +64,16 @@ public class UI_Controller : MonoBehaviour
         SelectCharacter_Panel.SetActive(true);
     }
 
+    public void Return()
+    {
+        SelectCharacter_Panel.SetActive(false);
+        StartPanel.SetActive(true);
+    }
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
+    }
 
     public void Character1_Clicked()
     {
@@ -85,7 +84,8 @@ public class UI_Controller : MonoBehaviour
             isC2_Selected = false;
             isC3_Selected = false;
 
-            
+            Select_Num = 0;
+
             Character1_Btn.GetComponent<Outline>().effectColor = Color.green;
             Character1_Btn.GetComponent<Outline>().effectDistance = new Vector2(5f, 5f);
 
@@ -99,7 +99,6 @@ public class UI_Controller : MonoBehaviour
             isC1_Selected = false;
             Character1_Btn.GetComponent<Outline>().effectDistance = new Vector2(0f, 0f);
         }
-        
     }
 
     public void Character2_Clicked()
@@ -111,6 +110,7 @@ public class UI_Controller : MonoBehaviour
             isC1_Selected = false;
             isC3_Selected = false;
 
+            Select_Num = 1;
 
             Character2_Btn.GetComponent<Outline>().effectColor = Color.green;
             Character2_Btn.GetComponent<Outline>().effectDistance = new Vector2(5f, 5f);
@@ -126,7 +126,6 @@ public class UI_Controller : MonoBehaviour
             isC2_Selected = false;          
             Character2_Btn.GetComponent<Outline>().effectDistance = new Vector2(0f, 0f);
         }
-
     }
 
 
@@ -140,6 +139,7 @@ public class UI_Controller : MonoBehaviour
             isC1_Selected = false;
             isC2_Selected = false;
 
+            Select_Num = 2;
 
             Character3_Btn.GetComponent<Outline>().effectColor = Color.green;
             Character3_Btn.GetComponent<Outline>().effectDistance = new Vector2(5f, 5f);
